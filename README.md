@@ -9,4 +9,4 @@ Jeg har planer/idéer om å lage mer funksjonalitet, deriblant
 - se hvor lang tid det tok
 - se high score board
 
-Men vi får se hva jeg rekker :D
+Men får se hva jeg rekker :D
