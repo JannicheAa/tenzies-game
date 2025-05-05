@@ -34,7 +34,12 @@ export default function HighScoreForm(props) {
           <button onClick={saveHighScore}>Lagre</button>
         </div>
       ) : (
-        <button onClick={() => setShowNameInput(true)}>Lagre high score</button>
+        <button
+          className="save-name-btn"
+          onClick={() => setShowNameInput(true)}
+        >
+          Lagre high score
+        </button>
       )}
     </div>
   );
