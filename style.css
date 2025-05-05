@@ -5,7 +5,6 @@
 body {
     font-family: 'Karla', sans-serif;
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
@@ -13,6 +12,11 @@ body {
 }
 
 main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    gap: 40px;
     height: 100%;
     margin: 0;
 }
@@ -27,15 +31,17 @@ main {
 }
 
 .highscore-list {
-    position: fixed;
-    top: 50%;
-    right: 64px;
-    transform: translateY(-100%);
     color: #59E391;
     font-family: Inter;
     font-weight: 500;
     line-height: 1.5;
 }
+
+@media (max-width: 860px) {
+    main {
+      flex-direction: column; /* Stable innhold vertikalt */
+    }
+  }
 
 .dice-container {
     display: grid;
@@ -158,6 +164,11 @@ h1{
     font-family: 'Karla', sans-serif;
 }
 
+h2 {
+    margin: 0 0 12px;
+    text-align: center;
+}
+
 .die-btn span {
     font-size: 24px;
     text-align: center;
@@ -173,6 +184,32 @@ h1{
     margin: 0 0 32px;
     line-height: 1.5;
     text-align: center;
-
 }
+
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+.score-row {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #55D88A;
+}
+
+.rank{
+    width: 25px;
+}
+
+.score-name {
+    width: 140px;
+    white-space: nowrap;         /* Ikke bryt linjen */
+    overflow: hidden;            /* Skjul det som ikke får plass */
+    text-overflow: ellipsis;      /* Vis ... på slutten */
+}
+
+.score-time{
+    width: 100px;
+}
+
 

@@ -102,7 +102,7 @@ export default function App() {
           ]}
         />
       )}
-      <div className="tenzies-card">
+      <div className="tenzies-card element-1">
         <h1 className="title">Tenzies</h1>
         <p className="instructions">
           Kast til alle terningene er like. Klikk på hver terning for å fryse
@@ -110,7 +110,9 @@ export default function App() {
         </p>
         <div className="dice-container">{diceButtons}</div>
 
-        {tenzies && <HighScoreForm elapsedTime={elapsedTime} />}
+        {tenzies && (
+          <HighScoreForm className="element-2" elapsedTime={elapsedTime} />
+        )}
 
         <button className="toss-btn" onClick={rollDice}>
           <span className="toss-btn-text">

@@ -22,7 +22,7 @@ export default function HighScoreForm(props) {
   }
   return (
     <div className="winner-info">
-      <p>Du vant på {props.elapsedTime} sekunder!</p>
+      <p>Du klarte det på {props.elapsedTime} sekunder!</p>
       {showNameInput ? (
         <div>
           <input
