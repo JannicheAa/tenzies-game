@@ -156,11 +156,38 @@ main {
     transform: scale(0.9);
 }
 
+.high-score-form-container {
+    height: 200px;
+}
+
 .winner-info{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
+    margin-bottom: 24px;
+    min-height: 50px;
+}
+
+.save-btn {
+    cursor: pointer;
+    border: 1px solid #CAC2FF;
+    background-color: #EDEBFF;
+    border-radius: 4px;
+    padding: 6px 8px;
+
+}
+
+.save-btn:hover, .save-btn:active {
+    background-color: #CAC2FF;
+}
+
+input {
+    margin-right: 8px;
+    height: 29.5px;
+    padding: 8px;
+    outline-color: #5035FF;
+
 }
 
 /* Typography */
@@ -185,9 +212,6 @@ p {
     margin: 0;
 }
 
-.save-name-btn{
-    margin-bottom: 24px;
-}
 .instructions {
     color: #4A4E74;
     font-family: Inter;

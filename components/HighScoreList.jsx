@@ -2,9 +2,11 @@ import React from "react";
 import { db } from "/firebase.js";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
 
-export default function HighScoreList() {
-  const [highScores, setHighScores] = React.useState([]);
-
+export default function HighScoreList({
+  highScores,
+  setHighScores,
+  refreshTrigger,
+}) {
   React.useEffect(() => {
     async function fetchHighScores() {
       const querySnapshot = await getDocs(
@@ -14,12 +16,11 @@ export default function HighScoreList() {
         ...doc.data(),
         id: doc.id,
       }));
-      console.log(scores);
       setHighScores(scores);
     }
 
     fetchHighScores();
-  }, []);
+  }, [setHighScores, refreshTrigger]);
 
   return (
     <div className="highscore-list">

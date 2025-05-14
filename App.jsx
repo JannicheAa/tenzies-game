@@ -26,13 +26,20 @@ export default function App() {
   const [tenzies, setTenzies] = React.useState(false);
   const [startTime, setStartTime] = React.useState(null);
   const [elapsedTime, setElapsedTime] = React.useState(null);
+  const [highScores, setHighScores] = React.useState([]);
+  const [refreshHighScores, setRefreshHighScores] = React.useState(false);
+
+  const qualifiesForHighScore = React.useMemo(() => {
+    if (elapsedTime === null) return false;
+    const tenthTime = highScores[9]?.time ?? Infinity;
+    return highScores.length < 10 || elapsedTime < tenthTime;
+  }, [elapsedTime, highScores]);
 
   function rollDice() {
     const noDiceHeld = diceArr.every((die) => !die.isHeld);
     if (!tenzies) {
       if (noDiceHeld) {
         setStartTime(performance.now());
-        console.log(startTime);
       }
       setDiceArr((prevDiceArr) =>
         prevDiceArr.map((die) => (die.isHeld ? die : generateNewDie()))
@@ -60,10 +67,6 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    console.log(startTime);
-  }, [startTime]);
-
-  React.useEffect(() => {
     const allHeld = diceArr.every((die) => die.isHeld);
     const firstValue = diceArr[0].value;
     const allSameValue = diceArr.every((die) => die.value === firstValue);
@@ -73,7 +76,7 @@ export default function App() {
       if (startTime !== null) {
         const endTime = performance.now();
         const timeInSeconds = ((endTime - startTime) / 1000).toFixed(2);
-        setElapsedTime(timeInSeconds);
+        setElapsedTime(parseFloat(timeInSeconds));
       }
     }
   }, [diceArr, startTime]);
@@ -90,7 +93,7 @@ export default function App() {
 
   return (
     <main>
-      {tenzies && (
+      {tenzies && qualifiesForHighScore && (
         <Confetti
           colors={[
             "#FF5BCE",
@@ -102,25 +105,34 @@ export default function App() {
           ]}
         />
       )}
-      <div className="tenzies-card element-1">
+      <div className="tenzies-card">
         <h1 className="title">Tenzies</h1>
         <p className="instructions">
           Kast til alle terningene er like. Klikk på hver terning for å fryse
           den til sin nåværende verdi mellom kastene.
         </p>
         <div className="dice-container">{diceButtons}</div>
-
-        {tenzies && (
-          <HighScoreForm className="element-2" elapsedTime={elapsedTime} />
-        )}
-
+        <div className="winner-info">
+          {tenzies && <p>Du klarte det på {elapsedTime} sekunder!</p>}
+          {tenzies && qualifiesForHighScore && (
+            <HighScoreForm
+              className="high-score-form-container"
+              elapsedTime={elapsedTime}
+              onSave={() => setRefreshHighScores((prev) => !prev)}
+            />
+          )}
+        </div>
         <button className="toss-btn" onClick={rollDice}>
           <span className="toss-btn-text">
             {tenzies ? "Spill på nytt" : "Kast"}
           </span>
         </button>
       </div>
-      <HighScoreList />
+      <HighScoreList
+        setHighScores={setHighScores}
+        highScores={highScores}
+        refreshTrigger={refreshHighScores}
+      />
     </main>
   );
 }
